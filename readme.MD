@@ -12,4 +12,10 @@ docker run -it --rm -p 9001:9001 k8
 - We use dockerhub to store our image in a public repo.  
 
 ## Run Kubernetes deployment
-- kubectl apply -f server.yaml
+- kubectl apply -f ./servevr.yaml 
+
+## Run service to expose Deployment
+- kubectl apply -f ./service.yaml
+
+## To view endpoint
+- Go to `localhost:30643`
