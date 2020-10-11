@@ -12,10 +12,11 @@ docker run -it --rm -p 9001:9001 k8
 - We use dockerhub to store our image in a public repo.  
 
 ## Run Kubernetes deployment
-- kubectl apply -f ./servevr.yaml 
-
-## Run service to expose Deployment
-- kubectl apply -f ./service.yaml
+- `cd /deployments`
+- `kubectl apply -f ./server.yaml`
 
 ## To view endpoint
 - Go to `localhost:30643`
+
+## Create Loadbalancer with Kubectl
+- `kubectl expose deployment go-deployment --port=7989 --target-port=9001 --name=go-service --type=LoadBalancer -o yaml > loadbalancer.yaml` 

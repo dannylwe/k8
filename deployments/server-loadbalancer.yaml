@@ -17,3 +17,17 @@ spec:
         image: acehanks/k8:v1
         ports:
         - containerPort: 9001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-service
+spec:
+  selector:
+    app: go-server
+  type: LoadBalancer 
+  ports: 
+    - port: 5050
+      protocol: TCP       
+      targetPort: 9001
+  
