@@ -20,3 +20,6 @@ docker run -it --rm -p 9001:9001 k8
 
 ## Create Loadbalancer with Kubectl
 - `kubectl expose deployment go-deployment --port=7989 --target-port=9001 --name=go-service --type=LoadBalancer -o yaml > loadbalancer.yaml` 
+
+## Port forward service
+- `kubectl -n default port-forward --address 0.0.0.0 service/go-service 5000:5050`
