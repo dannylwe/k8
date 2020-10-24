@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/dannylwe/k8.git
     targetRevision: HEAD
-    path: k8/deployments
+    path: deployments
   destination:
     server: https://kubernetes.default.svc
-    namespace: demo
+    namespace: default
