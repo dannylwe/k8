@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: go-server
-        image: acehanks/k8:v1
+        image: acehanks/k8:v2
         ports:
         - containerPort: 9001
 ---
