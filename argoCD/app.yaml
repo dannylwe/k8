@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dannylwe/k8.git
+    targetRevision: HEAD
+    path: k8/deployments
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo
