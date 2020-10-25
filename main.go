@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 func main() {
 	fmt.Println("starting application on PORT 9001")
 	http.HandleFunc("/", HelloServer)
