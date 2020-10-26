@@ -34,9 +34,10 @@ func main() {
 }
 
 func getAllOrders(w http.ResponseWriter, r *http.Request) {
-	orders := []order{{4, "34567", 4, 7}, {5, "367867", 1, 1}, {5, "3567897", 2, 3}}
+	orders := []order{{4, "3456", 4, 7}, {5, "3678", 1, 1}, {6, "3567", 2, 3}}
 	response, _ := json.Marshal(orders)
 
+	logger.Info("response get all orders")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
