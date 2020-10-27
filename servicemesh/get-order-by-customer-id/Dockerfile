@@ -1,18 +1,33 @@
-FROM golang:1.15-alpine as build
-RUN apk add --no-cache git
+FROM golang:alpine as builder
 
-WORKDIR /src 
+LABEL maintainer="Daniel Lwetabe <dannylwe11@gmail.com>"
 
-COPY go.sum /src/
-COPY go.mod /src/
+# Set necessary environmet variables needed for our image
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64
+
+# Move to working directory /build
+WORKDIR /build
+
+# Copy and download dependency using go mod
+# COPY go.mod .
+# COPY go.sum .
+COPY . .
 RUN go mod download
 
-COPY app.go /src
+# Copy the code into the container
+# COPY . .
 
-RUN go build -o app
+# Build the application
+RUN go build -o main .
 
-FROM alpine:3.12
+FROM scratch
 
-RUN mkdir -p /app
-COPY --from=build /src/app /app/app
-CMD ["./app/app"]
+# copy binary to app directory in second stage
+COPY --from=builder /build/main /api/
+
+EXPOSE 9001
+
+ENTRYPOINT [ "/api/main" ]

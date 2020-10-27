@@ -21,12 +21,13 @@ type Orders struct {
 
 func main() {
 	PORT := ":9003"
-	logger.Info("get order by orderID on port " + PORT)
-
+	
 	r := mux.NewRouter()
 	r.Use(CORS)
-
+	
 	r.HandleFunc("/order/{orderID}", getOrderID)
+	
+	logger.Info("get order by orderID on port " + PORT)
 	logger.Fatal(http.ListenAndServe(PORT, r))
 }
 
@@ -40,8 +41,8 @@ func getOrderID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	
-	ordersResp, err := http.Get("http://localhost:9000/orders")
+
+	ordersResp, err := http.Get("http://all-svc/orders")
 	if err != nil {
 		logger.Error(err)
 	}
@@ -50,13 +51,13 @@ func getOrderID(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	var orderResult []Orders
 	json.NewDecoder(strings.NewReader(string(orders))).Decode(&orderResult)
 	logger.Debug(orderResult)
 
 	for _, orderSearch := range orderResult {
-		if order ==  orderSearch.OrderID {
+		if order == orderSearch.OrderID {
 			out, _ := json.Marshal(orderSearch)
 			logger.Info("get order by ID")
 
@@ -65,7 +66,7 @@ func getOrderID(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	
+
 	logger.Error("Invalid orderID")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotFound)

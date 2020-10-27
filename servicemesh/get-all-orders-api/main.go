@@ -28,13 +28,14 @@ type response struct {
 
 func main() {
 	PORT := ":9000"
-	logger.Info("get all orders api started on port " + PORT)
-
+	
 	r := mux.NewRouter()
 	r.Use(CORS)
-
+	
 	r.HandleFunc("/orders", getAllOrders)
 	r.Handle("/health", healthCheck())
+	
+	logger.Info("get all orders api started on port " + PORT)
 	log.Fatal(http.ListenAndServe(PORT, r))
 }
 
@@ -101,7 +102,7 @@ func CORS(next http.Handler) http.Handler {
 // redisClient creates a connection to the redis database
 func redisClient(ctx context.Context) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis-master:6379",
 		Password: "",
 		DB:       0,
 	})

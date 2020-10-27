@@ -21,12 +21,13 @@ type Orders struct {
 
 func main() {
 	PORT := ":9001"
-	logger.Info("get order by customerID on port " + PORT)
-
+	
 	r := mux.NewRouter()
 	r.Use(CORS)
-
+	
 	r.HandleFunc("/order/{customerID}", getOrderByCustomerID)
+	
+	logger.Info("get order by customerID on port " + PORT)
 	logger.Fatal(http.ListenAndServe(PORT, r))
 }
 
@@ -40,8 +41,8 @@ func getOrderByCustomerID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	
-	ordersResp, err := http.Get("http://localhost:9000/orders")
+
+	ordersResp, err := http.Get("http://all-svc/orders")
 	if err != nil {
 		logger.Error(err)
 	}
@@ -50,14 +51,14 @@ func getOrderByCustomerID(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	var orderResult []Orders
 	json.NewDecoder(strings.NewReader(string(orders))).Decode(&orderResult)
 	logger.Debug(orderResult)
 
 	for _, orderSearch := range orderResult {
 		customerInt, _ := strconv.ParseInt(orderSearch.CustomerID, 10, 32)
-		if int64(customer) ==  customerInt {
+		if int64(customer) == customerInt {
 			out, _ := json.Marshal(orderSearch)
 
 			w.Header().Set("Content-Type", "application/json")
@@ -65,7 +66,7 @@ func getOrderByCustomerID(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotFound)
 	w.Write([]byte(`{"statusError": "can not find customer"}`))
