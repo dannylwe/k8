@@ -41,26 +41,27 @@ func main() {
 
 func getAllOrders(w http.ResponseWriter, r *http.Request) {
 	orders := []order{{4, "3456", 4, 7}, {5, "3678", 1, 1}, {6, "3567", 2, 3}}
-	records, err := getFromRedis(ctx, "records")
+	response, _ := json.Marshal(orders)
+	// records, err := getFromRedis(ctx, "records")
 
-	if err != nil {
-		stringOrders, _ := json.Marshal(orders)
-		stored := string(stringOrders)
-		saveToRedis(ctx, "records", stored)
+	// if err != nil {
+	// 	stringOrders, _ := json.Marshal(orders)
+	// 	stored := string(stringOrders)
+	// 	saveToRedis(ctx, "records", stored)
 
-		logger.Info("response get all orders: static")
+	// 	logger.Info("response get all orders: static")
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		response, _ := json.Marshal(orders)
-		w.Write(response)
-		return
-	}
+	// 	w.Header().Set("Content-Type", "application/json")
+	// 	w.WriteHeader(http.StatusOK)
+	// 	response, _ := json.Marshal(orders)
+	// 	w.Write(response)
+	// 	return
+	// }
 
 	logger.Info("response get all orders: redis")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(records))
+	w.Write([]byte(response))
 }
 
 func healthCheck() http.Handler {
