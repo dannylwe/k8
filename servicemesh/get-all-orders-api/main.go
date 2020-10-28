@@ -102,7 +102,7 @@ func CORS(next http.Handler) http.Handler {
 // redisClient creates a connection to the redis database
 func redisClient(ctx context.Context) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "redis-master:6379",
+		Addr:     "redis:6379",
 		Password: "",
 		DB:       0,
 	})

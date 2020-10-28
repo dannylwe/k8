@@ -29,12 +29,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-master
+  name: redis
   namespace: servicemesh
   labels:
     app: redis-master
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: redis-master
   ports:
