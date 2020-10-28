@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: get-all
-        image: acehanks/getall:v2
+        image: acehanks/getall:v3
         ports:
         - containerPort: 9000
 ---

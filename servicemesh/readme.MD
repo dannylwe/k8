@@ -2,7 +2,7 @@
 docker run --name redis-server -p 6379:6379 -d redis
 
 ## Build images and Push
-docker build -t acehanks/getall:v2 . && docker push acehanks/getall  
+docker build -t acehanks/getall:v3 . && docker push acehanks/getall  
 docker build -t acehanks/getbyid:v2 . && docker push acehanks/getbyid  
 docker build -t acehanks/getcust:v2 . && docker push acehanks/getcust  
 
