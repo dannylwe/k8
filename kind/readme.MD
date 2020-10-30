@@ -34,6 +34,14 @@ On bear metal servers, services of type LoadBalancer will remain in pending stat
 
 Get usable IP address `kubectl get nodes -o wide` and pay attention to the Internal IP range.
 
+## Install metallb
+```
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/metallb.yaml
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+```
+
 ### Port forward
 `kubectl port-forward service/nginx 5000:80`  
 Listen on port 5000 and forward port 80 on service ngnix.  
