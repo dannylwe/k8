@@ -11,7 +11,7 @@ kubectl get deployments -n servicemesh -o yaml | linkerd inject - | kubectl appl
 
 ## TODO  
 
-[ ] Deploy to k8  
+[ ] Add redis 
 [ ] Add ngnix ingress
 [ ] use linkerd 2.X service mesh  
 [ ] use istio service mesh  
