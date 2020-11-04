@@ -36,7 +36,7 @@ spec:
   selector:
     app: get-all
   ports: 
-    - port: 80
+    - port: 9000
       protocol: TCP       
       targetPort: 9000
 ---
@@ -70,7 +70,7 @@ spec:
     selector:
     app: get-customer
     ports: 
-    - port: 80
+    - port: 9001
         protocol: TCP       
         targetPort: 9001
 ---
@@ -104,7 +104,7 @@ spec:
     selector:
     app: get-id
     ports: 
-    - port: 80
+    - port: 9003
         protocol: TCP       
         targetPort: 9003
     
