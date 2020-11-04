@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: servicemesh
+spec: {}
+status: {}
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: get-all
+  namespace: servicemesh
+spec:
+  selector:
+    matchLabels:
+      app: get-all
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: get-all
+    spec:
+      containers:
+      - name: get-all
+        image: acehanks/getall:v3
+        ports:
+        - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: all-svc
+  namespace: servicemesh
+spec:
+  selector:
+    app: get-all
+  ports: 
+    - port: 80
+      protocol: TCP       
+      targetPort: 9000
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+    name: get-customer
+    namespace: servicemesh
+spec:
+    selector:
+    matchLabels:
+        app: get-customer
+    replicas: 1
+    template:
+    metadata:
+        labels:
+        app: get-customer
+    spec:
+        containers:
+        - name: get-customer
+        image: acehanks/getcust:v2
+        ports:
+        - containerPort: 9001
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: customer-svc
+    namespace: servicemesh
+spec:
+    selector:
+    app: get-customer
+    ports: 
+    - port: 80
+        protocol: TCP       
+        targetPort: 9001
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+    name: get-id
+    namespace: servicemesh
+spec:
+    selector:
+    matchLabels:
+        app: get-id
+    replicas: 1
+    template:
+    metadata:
+        labels:
+        app: get-id
+    spec:
+        containers:
+        - name: get-id
+        image: acehanks/getbyid:v2
+        ports:
+        - containerPort: 9003
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: id-svc
+    namespace: servicemesh
+spec:
+    selector:
+    app: get-id
+    ports: 
+    - port: 80
+        protocol: TCP       
+        targetPort: 9003
+    
+    
