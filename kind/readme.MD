@@ -1,9 +1,47 @@
 ## How to Setup Kubernetes Loadbalancer on Baremetal
 
 NOTE: [docker](https://docs.docker.com/engine/install/ubuntu/) is required to be installed on the host.
+### Install Docker on Ubuntu 18.04
+```
+sudo apt update && sudo apt upgrade
+```
+```
+sudo apt-get install curl apt-transport-https ca-certificates software-properties-common
+```
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+```
+```
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
+```
+sudo apt update
+```
+```
+sudo apt install docker-ce
+```
+```
+sudo systemctl status docker
+```
+
+### To run docker without sudo command
+```
+sudo usermod -aG docker $USER
+```
+```
+newgrp docker
+```
+
+### Confirm docker is running properly
+```
+docker run hello-world
+```
+This will print to console an informational message.
+
+For macOS and windows, install [docker-desktop](https://www.docker.com/products/docker-desktop).
 
 ### Installation on Linux
-We are going to be using kindD to create our local kubernetes cluster. You can get kind
+We are going to be using [kind](https://github.com/kubernetes-sigs/kind) to create our local kubernetes cluster. You can get kind
 ```
 wget https://github.com/kubernetes-sigs/kind/releases/download/v0.9.0/kind-linux-amd64
 ```
