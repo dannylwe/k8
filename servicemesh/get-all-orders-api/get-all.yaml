@@ -29,7 +29,7 @@ spec:
     app: get-all
   type: LoadBalancer 
   ports: 
-    - port: 80
+    - port: 9000
       protocol: TCP       
       targetPort: 9000
   
