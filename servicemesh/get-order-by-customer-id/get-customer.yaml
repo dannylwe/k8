@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: get-customer
-        image: acehanks/getcust:v2
+        image: acehanks/getcust:v10
         ports:
         - containerPort: 9001
 ---

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: get-id
-        image: acehanks/getbyid:v2
+        image: acehanks/getbyid:v10
         ports:
         - containerPort: 9003
 ---

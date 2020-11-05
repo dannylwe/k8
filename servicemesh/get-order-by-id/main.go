@@ -42,7 +42,7 @@ func getOrderID(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 
-	ordersResp, err := http.Get("http://all-svc/orders")
+	ordersResp, err := http.Get("http://all-svc:9000/orders")
 	if err != nil {
 		logger.Error(err)
 	}
