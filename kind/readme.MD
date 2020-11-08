@@ -71,9 +71,9 @@ NOTE: If you have go (1.11+) and docker installed GO111MODULE="on" `go get sigs.
 
 confirm cluster is running `kubectl cluster-info`  
 
-## Create ngnix deployment and service
+## Create nginx deployment and service
 ```
-kubectl create deploy nginx --image ngnix
+kubectl create deploy nginx --image nginx
 ```
 ```
 kubectl expose deploy nginx --port 80 --type LoadBalancer
