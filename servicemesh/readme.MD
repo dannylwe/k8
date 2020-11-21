@@ -1,6 +1,12 @@
 ## Deploy application
 kubectl apply -f deploy.yaml
 
+# ngnix install
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml 
+
+## remove ingress error
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
 ## Run redis docker container
 docker run --name redis-server -p 6379:6379 -d redis
 
