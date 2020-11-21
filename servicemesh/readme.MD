@@ -1,3 +1,6 @@
+## Deploy application
+kubectl apply -f deploy.yaml
+
 ## Run redis docker container
 docker run --name redis-server -p 6379:6379 -d redis
 
